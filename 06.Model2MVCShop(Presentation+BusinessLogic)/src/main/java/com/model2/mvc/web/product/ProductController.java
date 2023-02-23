@@ -67,37 +67,41 @@ public class ProductController {
 		System.out.println("/getProduct.do");
 		//Business Logic
 		Product product = productService.getProduct(prodNo);
+		System.out.println("product : " +product.getRegDate());
 		// Model 과 View 연결
 		model.addAttribute("product", product);
 		
 		return "forward:/product/getProduct.jsp";
 	}
 	
-	@RequestMapping("/updateProductView.do")
+	@RequestMapping("/updateProduct.do")
 	public String updateProductView( @RequestParam("prodNo") int prodNo , Model model ) throws Exception{
 
-		System.out.println("/updateProductView.do");
+		System.out.println("/updateProduct.do");
 		//Business Logic
 		Product product = productService.getProduct(prodNo);
+		//productService.updateProduct(product);
 		// Model 과 View 연결
 		model.addAttribute("product", product);
 		
-		return "forward:/updateProductView.do?prodNo="+product.getProdNo();
+		System.out.println("update product 값 확인 : "+product);
+		
+		return "forward:/product/updateProductView.jsp";
 	}
 	
-	//UpdateUserAction
-	@RequestMapping("/updateProduct.do")
+	@RequestMapping("/updateProductView.do")
 	public String updateProduct( @ModelAttribute("product") Product product , Model model , HttpSession session) throws Exception{
 
-		System.out.println("/updateProduct.do");
+		System.out.println("/updateProductView.do");
+		System.out.println("Product 값 체크.. : " +product);
 		productService.updateProduct(product);
 		
-		int sessionId=((Product)session.getAttribute("product")).getProdNo();
-		if(sessionId==product.getProdNo()){
-			session.setAttribute("product", product);
-		}
+		model.addAttribute("product", product);
 		
-		return "redirect:/product/updateProductView.jsp";
+		
+		System.out.println("updateProductView product : "+product+" prodNo : "+product.getProdNo());
+		
+		return "redirect:/getProduct.do?prodNo="+product.getProdNo();
 	}
 	
 	
@@ -105,6 +109,7 @@ public class ProductController {
 	public String listProduct( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
 		System.out.println("/listProduct.do");
+		
 		
 		String menu = request.getParameter("menu");
 		System.out.println("ListProductAction menu = " + menu);
@@ -116,6 +121,7 @@ public class ProductController {
 		}
 		search.setPageSize(pageSize);
 		
+
 		// Business logic 수행
 		Map<String , Object> map=productService.getProductList(search);
 		

@@ -124,7 +124,7 @@ function fncGetProductList(currentPage) {
 			<td align="left"><a href="
 			<c:choose>
 			<c:when test="${menu =='manage'}">
-			/updateProductView.do
+			/updateProduct.do
 			</c:when>
 			<c:otherwise>
 			/getProduct.do

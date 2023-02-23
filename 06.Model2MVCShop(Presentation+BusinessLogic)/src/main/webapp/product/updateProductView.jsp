@@ -39,7 +39,7 @@ function fncAddProduct(){
 		return;
 	}
 		
-	document.detailForm.action='/updateProduct.do';
+	document.detailForm.action='/updateProductView.do';
 	document.detailForm.submit();
 }
 -->

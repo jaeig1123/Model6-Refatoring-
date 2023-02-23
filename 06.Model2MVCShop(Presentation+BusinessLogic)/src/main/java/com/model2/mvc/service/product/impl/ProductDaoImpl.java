@@ -46,7 +46,6 @@ public class ProductDaoImpl implements ProductDao{
 		return sqlSession.selectList("ProductMapper.getProductList", search);
 	}
 
-	// 게시판 Page 처리를 위한 전체 Row(totalCount)  return
 	public int getTotalCount(Search search) throws Exception {
 		return sqlSession.selectOne("ProductMapper.getTotalCount", search);
 	}

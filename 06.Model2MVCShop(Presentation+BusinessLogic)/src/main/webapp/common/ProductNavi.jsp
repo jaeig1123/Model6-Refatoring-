@@ -1,5 +1,6 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 
+<%@ page contentType="text/html; charset=euc-kr" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
 		
@@ -7,16 +8,42 @@
 			◀ 이전
 	</c:if>
 	<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
-			<a href="javascript:fncGetProductList('${ resultPage.currentPage-1}')">◀ 이전</a>
+			<a href="listProduct.do?currentPage=${ resultPage.currentPage-1}&
+						<c:set var="menu" value="menu" scope="request"/>
+						<c:choose>
+						<c:when test="${menu =='manage'}">
+						menu=manage
+						</c:when>
+						<c:otherwise>
+						menu=search
+						</c:otherwise>
+						</c:choose>">◀ 이전</a>
 	</c:if>
 	
 	<c:forEach var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
-		<a href="javascript:fncGetProductList('${ i }');">${ i }</a>
+		<a href="listProduct.do?currentPage=${ i }&
+						<c:set var="menu" value="menu" scope="request"/>
+						<c:choose>
+						<c:when test="${menu =='manage'}">
+						menu=manage
+						</c:when>
+						<c:otherwise>
+						menu=search
+						</c:otherwise>
+						</c:choose>">${ i }</a>
 	</c:forEach>
 	
 	<c:if test="${ resultPage.endUnitPage >= resultPage.maxPage }">
 			이후 ▶
 	</c:if>
 	<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
-			<a href="javascript:fncGetProductList('${resultPage.endUnitPage+1}')">이후 ▶</a>
+			<a href="listProduct.do?currentPage=${resultPage.endUnitPage+1}&
+					<c:choose>
+					<c:when test="${menu =='manage'}">
+					menu=manage
+					</c:when>
+					<c:otherwise>
+					menu=search
+					</c:otherwise>
+					</c:choose>">이후 ▶</a>
 	</c:if>
